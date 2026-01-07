@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AgentCity:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AgentCity_jar</output-path>
+    <root id="archive" name="AgentCity.jar">
+      <element id="module-output" name="AgentCity" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/json-20231013.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jade.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
