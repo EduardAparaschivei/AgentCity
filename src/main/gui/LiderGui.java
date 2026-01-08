@@ -84,18 +84,18 @@ public class LiderGui extends JFrame {
 
         // Randul B: Actiuni Zilnice
         JPanel rowB = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton btnTaxe = new JButton("💰 Colectează Taxe");
+
         JButton btnMunca = new JButton("⚒️ Schimbă Regim Muncă");
         btnAnaliza = new JButton("🤖 Analiză AI Oraș");
         btnAnaliza.setBackground(new Color(70, 130, 180)); // Un albastru mai inchis
         btnAnaliza.setForeground(Color.WHITE);
 
-        btnTaxe.addActionListener(e -> myAgent.comandaColectareTaxe());
+
         btnMunca.addActionListener(e -> myAgent.comandaMunca());
         btnAnaliza.addActionListener(e -> myAgent.cereAnalizaAI());
 
 
-        rowB.add(btnTaxe);
+
         rowB.add(btnMunca);
         rowB.add(btnAnaliza);
 

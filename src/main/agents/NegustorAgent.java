@@ -1,6 +1,7 @@
 package main.agents;
 
 import jade.core.AID;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -11,7 +12,7 @@ import main.behaviours.NegustorStatusTicker;
 import org.json.JSONObject;
 
 public class NegustorAgent extends BaseAgent {
-    private int bani = 100; // Capital initial
+    private int bani = 500; // Capital initial
 
     @Override
     protected void setup() {
@@ -19,6 +20,13 @@ public class NegustorAgent extends BaseAgent {
         inregistreazaServiciu();
 
         System.out.println("Negustor: Deschis pentru afaceri!");
+
+        addBehaviour(new OneShotBehaviour() {
+            @Override
+            public void action() {
+                trimiteStatus();
+            }
+        });
 
         // 2. Adaugare Comportamente (Decuplate)
         addBehaviour(new NegustorStatusTicker(this, 2000));
@@ -29,8 +37,8 @@ public class NegustorAgent extends BaseAgent {
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
-        sd.setType("merchant");
-        sd.setName("Negustor-Peste");
+        sd.setType("negustor");
+        sd.setName("Serviciu-Comercial");
         dfd.addServices(sd);
         try { DFService.register(this, dfd); } catch (Exception e) {}
     }

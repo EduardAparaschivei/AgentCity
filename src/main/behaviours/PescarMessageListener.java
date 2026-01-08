@@ -15,7 +15,6 @@ public class PescarMessageListener extends CyclicBehaviour {
 
     @Override
     public void action() {
-        // Daca e mort, blocam threadul
         if (pescar.isDead()) {
             block();
             return;
@@ -26,8 +25,14 @@ public class PescarMessageListener extends CyclicBehaviour {
         if (msg != null) {
             String content = msg.getContent();
 
+            // --- DEBUG ---
+            // Adauga linia asta sa vedem TOT ce primeste pescarul
+            // System.out.println(pescar.getLocalName() + ": Am primit mesaj [" + msg.getPerformative() + "] -> " + content);
+            // -------------
+
             // A. SCHIMBARE TIMP
             if (msg.getPerformative() == ACLMessage.PROPAGATE) {
+                System.out.println("⏰ " + pescar.getLocalName() + ": Am primit ordin de timp: " + content);
                 pescar.gestioneazaTimpul(content);
             }
             // B. TAXE
@@ -37,10 +42,6 @@ public class PescarMessageListener extends CyclicBehaviour {
             // C. MOARTE
             else if (content.equals("DIE")) {
                 pescar.moarte();
-            }
-            // D. Alte requesturi
-            else if (msg.getPerformative() == ACLMessage.REQUEST) {
-                // Ignore sau logica custom
             }
         } else {
             block();

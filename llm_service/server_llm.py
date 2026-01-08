@@ -3,7 +3,7 @@ import google.generativeai as genai
 from pydantic import BaseModel, Field
 
 # --- CONFIGURARE ---
-API_KEY = "AIzaSyDE5zUtXzZ8RcVAdl0rX-U0y3hRAvOEib0"
+API_KEY = "AIzaSyAAFB5hkJCxSUI8bhS7IXflnPRCw1l4Xj4"
 
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-2.5-flash-lite')

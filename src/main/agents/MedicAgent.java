@@ -1,6 +1,7 @@
 package main.agents;
 
 import jade.core.AID;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -10,7 +11,7 @@ import main.behaviours.MedicStatusTicker;
 import org.json.JSONObject;
 
 public class MedicAgent extends BaseAgent {
-    private int bani = 0;
+    private int bani = 250;
     private final int PRET_TRATAMENT = 50; // Cat castiga medicul
 
     @Override
@@ -19,6 +20,13 @@ public class MedicAgent extends BaseAgent {
         inregistreazaServiciu();
 
         System.out.println("Medic: Cabinet deschis.");
+
+        addBehaviour(new OneShotBehaviour() {
+            @Override
+            public void action() {
+                trimiteStatus();
+            }
+        });
 
         // 2. Adaugare Comportamente (Decuplate)
         addBehaviour(new MedicStatusTicker(this, 2000));
@@ -30,7 +38,7 @@ public class MedicAgent extends BaseAgent {
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
         sd.setType("doctor");
-        sd.setName("Spital-Municipal");
+        sd.setName("Serviciu-Medical");
         dfd.addServices(sd);
         try { DFService.register(this, dfd); } catch (Exception e) {}
     }

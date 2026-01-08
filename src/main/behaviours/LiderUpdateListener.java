@@ -1,5 +1,6 @@
 package main.behaviours;
 
+import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -22,6 +23,9 @@ public class LiderUpdateListener extends CyclicBehaviour {
             if (msg.getContent().equals("AGENT_DEAD")) {
                 String numeMort = msg.getSender().getLocalName();
                 if (lider.getGui() != null) {
+                    AID sender = msg.getSender();
+                    // Scoate-l din cache-ul liderului
+                    lider.removeAgentFromCache(sender);
                     lider.getGui().removeAgent(numeMort);
                     System.out.println("✝️ " + numeMort + " a decedat.");
                 }
