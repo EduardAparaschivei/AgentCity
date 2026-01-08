@@ -85,9 +85,33 @@ REM 6. Check .env (Optional)
 REM -----------------------
 if not exist "%ENVFILE%" (
   echo [INFO] Nu am gasit fisierul .env.
-  echo Se va crea un fisier .env gol. Completeaza-l daca folosesti API Keys.
+  echo Se va crea un fisier .env gol.
   type nul > "%ENVFILE%"
 )
+
+REM -----------------------
+REM 6.5. UPDATE API KEY (NOU)
+REM -----------------------
+echo.
+echo ========================================================
+echo  CONFIGURARE GEMINI API
+echo ========================================================
+echo Daca doresti sa schimbi cheia API din server_llm.py, introdu-o mai jos.
+echo Daca vrei sa pastrezi cheia existenta, apasa doar ENTER.
+echo.
+set /p "USER_API_KEY=Introdu API Key: "
+
+if not "%USER_API_KEY%"=="" (
+    echo [INFO] Actualizez cheia in %PYTHON_SCRIPT%...
+    
+    REM Folosim PowerShell pentru a inlocui textul in fisier fara a strica formatarea
+    powershell -Command "(Get-Content '%PYTHON_SCRIPT%') -replace 'API_KEY = \".*\"', 'API_KEY = \"%USER_API_KEY%\"' | Set-Content '%PYTHON_SCRIPT%'"
+    
+    echo [OK] Cheia a fost actualizata cu succes!
+) else (
+    echo [INFO] Se pastreaza cheia existenta.
+)
+echo.
 
 REM -----------------------
 REM 7. Start Python LLM service
@@ -112,6 +136,6 @@ if exist "%JAR_NAME%" (
 )
 
 REM La iesirea din Java, scriptul se termina.
-REM Serverul Python ramane deschis in background (fereastra minimizata).
+REM Serverul Python ramane deschis in background.
 echo.
 echo Aplicatia s-a inchis.
