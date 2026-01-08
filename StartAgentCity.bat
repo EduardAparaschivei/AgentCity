@@ -8,7 +8,7 @@ REM ==========================================
 REM CONFIGURARE NUME FISIERE
 REM ==========================================
 set "JAR_NAME=CitySim.jar"
-set "PYTHON_SCRIPT=server.py"
+set "PYTHON_SCRIPT=llm_service\server_llm.py"
 
 REM -----------------------
 REM 1. Check Java
@@ -97,7 +97,7 @@ REM /min porneste fereastra minimizata
 start "CitySim Brain" /min "%VENV_PY%" "%PYTHON_SCRIPT%"
 
 REM Asteptam putin sa porneasca Flask
-timeout /t 3 >nul
+timeout /t 5 >nul
 
 REM -----------------------
 REM 8. Start Java app
